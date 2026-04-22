@@ -198,6 +198,9 @@ const Landing: React.FC = () => {
   const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768);
   const [menuOpen, setMenuOpen] = useState(false);
   const [pricingView, setPricingView] = useState<'monthly' | 'yearly'>('monthly');
+  const [pricingProduct, setPricingProduct] = useState<'azulobooks' | 'docconvert'>('azulobooks');
+  const [signInOpen, setSignInOpen] = useState(false);
+  const [getStartedOpen, setGetStartedOpen] = useState(false);
   const [publicPlans, setPublicPlans] = useState<PlatformPlan[]>(DEFAULT_PUBLIC_PLANS);
   const moduleCats = ['All','Finance','HR','Operations','Commerce'];
 
@@ -275,8 +278,58 @@ const Landing: React.FC = () => {
             </button>
           ) : (
             <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
-              <a href="https://apps.azulobooks.com/#/login" target="_blank" rel="noopener noreferrer" style={{ padding: '8px 14px', fontSize: 13, fontWeight: 500, color: '#374151', textDecoration: 'none' }}>Sign in</a>
-              <a href="https://apps.azulobooks.com/#/register" target="_blank" rel="noopener noreferrer" style={{ padding: '9px 20px', fontSize: 13, fontWeight: 700, color: '#fff', background: 'linear-gradient(135deg,#06b6d4,#0891b2)', borderRadius: 8, textDecoration: 'none' }}>Get started free</a>
+              {/* Backdrop closes both dropdowns */}
+              {(signInOpen || getStartedOpen) && (
+                <div style={{ position: 'fixed', inset: 0, zIndex: 98 }} onClick={() => { setSignInOpen(false); setGetStartedOpen(false); }} />
+              )}
+
+              {/* Sign in dropdown */}
+              <div style={{ position: 'relative', zIndex: 99 }}>
+                <button
+                  onClick={() => { setSignInOpen(o => !o); setGetStartedOpen(false); }}
+                  style={{ padding: '8px 14px', fontSize: 13, fontWeight: 600, color: '#0891b2', background: 'none', border: '1.5px solid #bae6fd', borderRadius: 8, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 4 }}
+                >
+                  Go to your product
+                  <svg width="11" height="11" viewBox="0 0 12 12" fill="none" style={{ transition: 'transform 0.15s', transform: signInOpen ? 'rotate(180deg)' : 'none' }}><path d="M2 4l4 4 4-4" stroke="#374151" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                </button>
+                {signInOpen && (
+                  <div style={{ position: 'absolute', top: 'calc(100% + 8px)', right: 0, background: '#fff', border: '1px solid #e5e7eb', borderRadius: 12, boxShadow: '0 8px 32px rgba(0,0,0,0.12)', padding: 6, minWidth: 210, zIndex: 99 }}>
+                    <a href="https://apps.azulobooks.com/#/login" target="_blank" rel="noopener noreferrer" onClick={() => setSignInOpen(false)} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', borderRadius: 8, textDecoration: 'none', color: '#111827' }}>
+                      <span style={{ width: 30, height: 30, borderRadius: 8, background: 'linear-gradient(135deg,#e0f2fe,#bae6fd)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 15, flexShrink: 0 }}>📊</span>
+                      <div><div style={{ fontWeight: 700, fontSize: 13 }}>AzuloBooks ERP</div><div style={{ fontSize: 11, color: '#6b7280' }}>Business management</div></div>
+                    </a>
+                    <div style={{ height: 1, background: '#f3f4f6', margin: '4px 6px' }} />
+                    <a href="https://converter.azulobooks.com" target="_blank" rel="noopener noreferrer" onClick={() => setSignInOpen(false)} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', borderRadius: 8, textDecoration: 'none', color: '#111827' }}>
+                      <span style={{ width: 30, height: 30, borderRadius: 8, background: 'linear-gradient(135deg,#ede9fe,#ddd6fe)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 15, flexShrink: 0 }}>📄</span>
+                      <div><div style={{ fontWeight: 700, fontSize: 13 }}>Doc Convert</div><div style={{ fontSize: 11, color: '#6b7280' }}>File converter</div></div>
+                    </a>
+                  </div>
+                )}
+              </div>
+
+              {/* Get started dropdown */}
+              <div style={{ position: 'relative', zIndex: 99 }}>
+                <button
+                  onClick={() => { setGetStartedOpen(o => !o); setSignInOpen(false); }}
+                  style={{ padding: '9px 18px', fontSize: 13, fontWeight: 700, color: '#fff', background: 'linear-gradient(135deg,#06b6d4,#0891b2)', borderRadius: 8, border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6 }}
+                >
+                  Get started free
+                  <svg width="11" height="11" viewBox="0 0 12 12" fill="none" style={{ transition: 'transform 0.15s', transform: getStartedOpen ? 'rotate(180deg)' : 'none' }}><path d="M2 4l4 4 4-4" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                </button>
+                {getStartedOpen && (
+                  <div style={{ position: 'absolute', top: 'calc(100% + 8px)', right: 0, background: '#fff', border: '1px solid #e5e7eb', borderRadius: 12, boxShadow: '0 8px 32px rgba(0,0,0,0.12)', padding: 6, minWidth: 230, zIndex: 99 }}>
+                    <a href="https://apps.azulobooks.com/#/register" target="_blank" rel="noopener noreferrer" onClick={() => setGetStartedOpen(false)} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', borderRadius: 8, textDecoration: 'none', color: '#111827' }}>
+                      <span style={{ width: 30, height: 30, borderRadius: 8, background: 'linear-gradient(135deg,#e0f2fe,#bae6fd)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 15, flexShrink: 0 }}>📊</span>
+                      <div><div style={{ fontWeight: 700, fontSize: 13 }}>AzuloBooks ERP</div><div style={{ fontSize: 11, color: '#6b7280' }}>Free 30-day trial</div></div>
+                    </a>
+                    <div style={{ height: 1, background: '#f3f4f6', margin: '4px 6px' }} />
+                    <a href="https://converter.azulobooks.com" target="_blank" rel="noopener noreferrer" onClick={() => setGetStartedOpen(false)} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', borderRadius: 8, textDecoration: 'none', color: '#111827' }}>
+                      <span style={{ width: 30, height: 30, borderRadius: 8, background: 'linear-gradient(135deg,#ede9fe,#ddd6fe)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 15, flexShrink: 0 }}>📄</span>
+                      <div><div style={{ fontWeight: 700, fontSize: 13 }}>Doc Convert</div><div style={{ fontSize: 11, color: '#6b7280' }}>Free · Pro from $3/mo</div></div>
+                    </a>
+                  </div>
+                )}
+              </div>
             </div>
           )}
         </nav>
@@ -285,8 +338,21 @@ const Landing: React.FC = () => {
             {[['Products','products'],['Solutions','solutions'],['Pricing','pricing'],['Customers','customers']].map(([label,id]) => (
               <a key={id} href={`#${id}`} onClick={e => { e.preventDefault(); setMenuOpen(false); document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' }); }} style={{ fontSize: 15, fontWeight: 500, color: '#374151', textDecoration: 'none', padding: '8px 0', borderBottom: '1px solid #f3f4f6', cursor: 'pointer' }}>{label}</a>
             ))}
-            <a href="https://apps.azulobooks.com/#/login" target="_blank" rel="noopener noreferrer" style={{ fontSize: 15, fontWeight: 500, color: '#374151', textDecoration: 'none', padding: '8px 0' }}>Sign in</a>
-            <a href="https://apps.azulobooks.com/#/register" target="_blank" rel="noopener noreferrer" style={{ padding: '12px 20px', fontSize: 14, fontWeight: 700, color: '#fff', background: 'linear-gradient(135deg,#06b6d4,#0891b2)', borderRadius: 8, textDecoration: 'none', textAlign: 'center' }}>Get started free</a>
+            <div style={{ borderBottom: '1px solid #f3f4f6', paddingBottom: 12, marginBottom: 4 }}>
+              <div style={{ fontSize: 11, fontWeight: 700, color: '#9ca3af', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 8 }}>Go to your product</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                <a href="https://apps.azulobooks.com/#/login" target="_blank" rel="noopener noreferrer" onClick={() => setMenuOpen(false)} style={{ fontSize: 14, fontWeight: 600, color: '#374151', textDecoration: 'none', padding: '6px 0', display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <span style={{ fontSize: 16 }}>📊</span> AzuloBooks ERP
+                </a>
+                <a href="https://converter.azulobooks.com" target="_blank" rel="noopener noreferrer" onClick={() => setMenuOpen(false)} style={{ fontSize: 14, fontWeight: 600, color: '#374151', textDecoration: 'none', padding: '6px 0', display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <span style={{ fontSize: 16 }}>📄</span> Doc Convert
+                </a>
+              </div>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              <a href="https://apps.azulobooks.com/#/register" target="_blank" rel="noopener noreferrer" onClick={() => setMenuOpen(false)} style={{ padding: '12px 20px', fontSize: 14, fontWeight: 700, color: '#fff', background: 'linear-gradient(135deg,#06b6d4,#0891b2)', borderRadius: 8, textDecoration: 'none', textAlign: 'center' }}>Get started — AzuloBooks ERP</a>
+              <a href="https://converter.azulobooks.com" target="_blank" rel="noopener noreferrer" onClick={() => setMenuOpen(false)} style={{ padding: '12px 20px', fontSize: 14, fontWeight: 700, color: '#fff', background: 'linear-gradient(135deg,#7c3aed,#a78bfa)', borderRadius: 8, textDecoration: 'none', textAlign: 'center' }}>Try Doc Convert free</a>
+            </div>
           </div>
         )}
       </header>
@@ -302,11 +368,12 @@ const Landing: React.FC = () => {
             <p style={{ fontSize: 15, color: '#94a3b8', lineHeight: 1.8, marginBottom: 36, maxWidth: 400 }}>
               Accounting, payroll, inventory, POS and CRM — unified under one login. No integrations. No data silos.
             </p>
-            <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-              <a href="https://apps.azulobooks.com/#/register" target="_blank" rel="noopener noreferrer" style={{ padding: '12px 26px', fontSize: 14, fontWeight: 700, color: '#0f172a', background: '#22d3ee', borderRadius: 8, textDecoration: 'none' }}>
-                Start for free
-              </a>
-              <a href="#products" onClick={e => { e.preventDefault(); document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' }); }} style={{ padding: '12px 22px', fontSize: 14, fontWeight: 500, color: '#64748b', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8, textDecoration: 'none', cursor: 'pointer' }}>See our products</a>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+                <a href="https://apps.azulobooks.com/#/register" target="_blank" rel="noopener noreferrer" style={{ padding: '12px 22px', fontSize: 13.5, fontWeight: 700, color: '#0f172a', background: '#22d3ee', borderRadius: 8, textDecoration: 'none' }}>Start AzuloBooks free</a>
+                <a href="https://converter.azulobooks.com" target="_blank" rel="noopener noreferrer" style={{ padding: '12px 22px', fontSize: 13.5, fontWeight: 700, color: '#fff', background: 'rgba(124,58,237,0.85)', borderRadius: 8, textDecoration: 'none' }}>Try Doc Convert free</a>
+              </div>
+              <a href="#products" onClick={e => { e.preventDefault(); document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' }); }} style={{ fontSize: 13, color: '#475569', textDecoration: 'none', cursor: 'pointer' }}>→ See all products</a>
             </div>
             <div style={{ marginTop: 40, display: 'flex', gap: 36, paddingTop: 24, borderTop: '1px solid rgba(255,255,255,0.06)' }}>
               {[['520+','businesses'],['12','modules'],['$0','to start']].map(([v,l]) => (
@@ -428,138 +495,197 @@ const Landing: React.FC = () => {
       {/* Pricing */}
       <section id="pricing" style={{ padding: '88px 32px', background: '#fff' }}>
         <div style={{ maxWidth: 1080, margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: 56 }}>
+
+          {/* Header */}
+          <div style={{ textAlign: 'center', marginBottom: 40 }}>
             <div style={{ fontSize: 11, fontWeight: 700, color: '#06b6d4', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 10 }}>Pricing</div>
-            <h2 style={{ fontSize: 30, fontWeight: 900, letterSpacing: '-0.02em', marginBottom: 10, color: '#0f172a' }}>You are not dreaming</h2>
-            <p style={{ color: '#6b7280', fontSize: 15, maxWidth: 620, margin: '0 auto 16px' }}>Simple pricing. All apps included. One extra Community tier for non-profits.</p>
-            <p style={{ color: '#92400e', fontSize: 12.5, maxWidth: 760, margin: '0 auto 14px', background: '#fffbeb', border: '1px solid #fde68a', borderRadius: 10, padding: '8px 12px', fontWeight: 600 }}>
-              Light seats give employees access to leave, payslips and profile only — billed at <strong>$1 / user / month</strong>.
-            </p>
-            <div style={{ display: 'inline-flex', border: '1px solid #d1d5db', borderRadius: 999, overflow: 'hidden', background: '#fff' }}>
+            <h2 style={{ fontSize: 30, fontWeight: 900, letterSpacing: '-0.02em', marginBottom: 10, color: '#0f172a' }}>Simple, transparent pricing</h2>
+            <p style={{ color: '#6b7280', fontSize: 15, maxWidth: 500, margin: '0 auto' }}>Choose the product you want to price. Each one is independently priced with no surprises.</p>
+          </div>
+
+          {/* Product tabs */}
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 40 }}>
+            <div style={{ display: 'inline-flex', borderRadius: 14, border: '1px solid #e5e7eb', overflow: 'hidden', background: '#f8fafc', padding: 4, gap: 4 }}>
               <button
-                onClick={() => setPricingView('yearly')}
-                style={{ padding: '7px 14px', fontSize: 12, fontWeight: 700, border: 'none', cursor: 'pointer', background: pricingView === 'yearly' ? '#0f172a' : '#fff', color: pricingView === 'yearly' ? '#fff' : '#374151' }}
+                onClick={() => setPricingProduct('azulobooks')}
+                style={{ padding: '10px 24px', fontSize: 13.5, fontWeight: 700, border: 'none', cursor: 'pointer', borderRadius: 10, transition: 'all 0.18s', background: pricingProduct === 'azulobooks' ? 'linear-gradient(135deg,#06b6d4,#0891b2)' : 'transparent', color: pricingProduct === 'azulobooks' ? '#fff' : '#6b7280', boxShadow: pricingProduct === 'azulobooks' ? '0 2px 10px rgba(6,182,212,0.25)' : 'none' }}
               >
-                Yearly
+                AzuloBooks ERP
               </button>
               <button
-                onClick={() => setPricingView('monthly')}
-                style={{ padding: '7px 14px', fontSize: 12, fontWeight: 700, border: 'none', cursor: 'pointer', background: pricingView === 'monthly' ? '#0f172a' : '#fff', color: pricingView === 'monthly' ? '#fff' : '#374151' }}
+                onClick={() => setPricingProduct('docconvert')}
+                style={{ padding: '10px 24px', fontSize: 13.5, fontWeight: 700, border: 'none', cursor: 'pointer', borderRadius: 10, transition: 'all 0.18s', background: pricingProduct === 'docconvert' ? 'linear-gradient(135deg,#7c3aed,#a78bfa)' : 'transparent', color: pricingProduct === 'docconvert' ? '#fff' : '#6b7280', boxShadow: pricingProduct === 'docconvert' ? '0 2px 10px rgba(124,58,237,0.2)' : 'none' }}
               >
-                Monthly
+                Doc Convert
               </button>
             </div>
           </div>
-          <div
-            className="grid gap-6"
-            style={{ gridTemplateColumns: isMobile ? '1fr' : `repeat(${Math.max(1, Math.min(4, visiblePublicPlans.length))}, minmax(0, 1fr))` }}
-          >
-            {visiblePublicPlans.map((plan) => {
-              const isCommunity = plan.code === 'community';
-              const isPopular = !!plan.isPopular;
-              const displayPrice = isCommunity
-                ? 0
-                : pricingView === 'yearly'
-                  ? Number((plan.price * 0.8).toFixed(2))
-                  : plan.price;
 
-              return (
-                <div
-                  key={plan.id}
-                  className={`relative bg-white rounded-2xl shadow-sm border overflow-hidden flex flex-col transition-all ${
-                    isPopular
-                      ? 'border-blue-300 ring-2 ring-blue-200 z-10'
-                      : 'border-gray-200'
-                  }`}
-                >
-                  <div className="h-1 w-full" style={{ backgroundColor: plan.color ?? '#3b82f6' }} />
-
-                  <div className="p-4 flex items-start justify-between">
-                    <div>
-                      <h3 className="text-lg font-bold text-gray-900">{plan.name}</h3>
-                      {plan.description && (
-                        <p className="text-xs text-gray-500 mt-0.5 leading-snug max-w-xs">{plan.description}</p>
-                      )}
-                    </div>
-                    {isPopular && (
-                      <div className="flex-shrink-0 px-2 py-1 bg-blue-600 text-white text-[10px] font-bold rounded-full whitespace-nowrap">
-                        POPULAR
+          {/* ── AzuloBooks plans ── */}
+          {pricingProduct === 'azulobooks' && (
+            <>
+              <div style={{ textAlign: 'center', marginBottom: 28 }}>
+                <p style={{ color: '#6b7280', fontSize: 14, marginBottom: 12 }}>Per-user pricing · All 12 modules included · Community tier free for non-profits</p>
+                <p style={{ color: '#92400e', fontSize: 12.5, maxWidth: 700, margin: '0 auto 14px', background: '#fffbeb', border: '1px solid #fde68a', borderRadius: 10, padding: '8px 12px', fontWeight: 600 }}>
+                  Light seats give employees access to leave, payslips and profile only — billed at <strong>$1 / user / month</strong>.
+                </p>
+                <div style={{ display: 'inline-flex', border: '1px solid #d1d5db', borderRadius: 999, overflow: 'hidden', background: '#fff' }}>
+                  <button onClick={() => setPricingView('yearly')} style={{ padding: '7px 14px', fontSize: 12, fontWeight: 700, border: 'none', cursor: 'pointer', background: pricingView === 'yearly' ? '#0f172a' : '#fff', color: pricingView === 'yearly' ? '#fff' : '#374151' }}>Yearly</button>
+                  <button onClick={() => setPricingView('monthly')} style={{ padding: '7px 14px', fontSize: 12, fontWeight: 700, border: 'none', cursor: 'pointer', background: pricingView === 'monthly' ? '#0f172a' : '#fff', color: pricingView === 'monthly' ? '#fff' : '#374151' }}>Monthly</button>
+                </div>
+              </div>
+              <div className="grid gap-6" style={{ gridTemplateColumns: isMobile ? '1fr' : `repeat(${Math.max(1, Math.min(4, visiblePublicPlans.length))}, minmax(0, 1fr))` }}>
+                {visiblePublicPlans.map((plan) => {
+                  const isCommunity = plan.code === 'community';
+                  const isPopular = !!plan.isPopular;
+                  const displayPrice = isCommunity ? 0 : pricingView === 'yearly' ? Number((plan.price * 0.8).toFixed(2)) : plan.price;
+                  return (
+                    <div key={plan.id} className={`relative bg-white rounded-2xl shadow-sm border overflow-hidden flex flex-col transition-all ${isPopular ? 'border-blue-300 ring-2 ring-blue-200 z-10' : 'border-gray-200'}`}>
+                      <div className="h-1 w-full" style={{ backgroundColor: plan.color ?? '#3b82f6' }} />
+                      <div className="p-4 flex items-start justify-between">
+                        <div>
+                          <h3 className="text-lg font-bold text-gray-900">{plan.name}</h3>
+                          {plan.description && <p className="text-xs text-gray-500 mt-0.5 leading-snug max-w-xs">{plan.description}</p>}
+                        </div>
+                        {isPopular && <div className="flex-shrink-0 px-2 py-1 bg-blue-600 text-white text-[10px] font-bold rounded-full whitespace-nowrap">POPULAR</div>}
+                        {isCommunity && <div className="flex-shrink-0 px-2 py-1 bg-green-600 text-white text-[10px] font-bold rounded-full whitespace-nowrap">FREE</div>}
                       </div>
-                    )}
-                    {isCommunity && (
-                      <div className="flex-shrink-0 px-2 py-1 bg-green-600 text-white text-[10px] font-bold rounded-full whitespace-nowrap">
-                        FREE
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="px-4">
-                    {isCommunity ? (
-                      <>
-                        <div className="text-4xl font-extrabold text-green-600">Free forever</div>
-                        <p className="text-xs text-green-700 mt-1">Churches · Temples · Mosques · NGOs</p>
-                      </>
-                    ) : (
-                      <div className="flex items-baseline gap-1">
-                        <span className="text-4xl font-extrabold text-gray-900">${displayPrice}</span>
-                        <span className="text-sm text-gray-500">/ user / mo</span>
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="px-4 mt-3 pb-4">
-                    {isCommunity ? (
-                      <div className="p-2 bg-green-50 rounded border border-green-100 text-xs text-green-700">
-                        No credit card required · Requires NPO verification
-                      </div>
-                    ) : (
-                      <div className="flex items-center gap-2 text-xs">
-                        <span className="text-gray-600 font-medium">All apps included</span>
-                        {plan.price > 0 && (
-                          <span className="px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 font-semibold">Light seats $1/mo</span>
+                      <div className="px-4">
+                        {isCommunity ? (
+                          <><div className="text-4xl font-extrabold text-green-600">Free forever</div><p className="text-xs text-green-700 mt-1">Churches · Temples · Mosques · NGOs</p></>
+                        ) : (
+                          <div className="flex items-baseline gap-1"><span className="text-4xl font-extrabold text-gray-900">${displayPrice}</span><span className="text-sm text-gray-500">/ user / mo</span></div>
                         )}
                       </div>
-                    )}
-                  </div>
-
-                  {plan.features.length > 0 && (
-                    <div className="px-4 py-3 border-t border-gray-200">
-                      <ul className="space-y-1.5">
-                        {plan.features.slice(0, 5).map((f, i) => (
-                          <li key={`${plan.id}-f-${i}`} className="flex items-start gap-2 text-xs text-gray-600">
-                            <svg className="w-3 h-3 mt-0.5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/></svg>
-                            {f}
-                          </li>
-                        ))}
-                      </ul>
-                      {plan.features.length > 5 && (
-                        <p className="text-xs text-gray-400 mt-2">+ {plan.features.length - 5} more</p>
+                      <div className="px-4 mt-3 pb-4">
+                        {isCommunity ? (
+                          <div className="p-2 bg-green-50 rounded border border-green-100 text-xs text-green-700">No credit card required · Requires NPO verification</div>
+                        ) : (
+                          <div className="flex items-center gap-2 text-xs">
+                            <span className="text-gray-600 font-medium">All 12 modules included</span>
+                            {plan.price > 0 && <span className="px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 font-semibold">Light seats $1/mo</span>}
+                          </div>
+                        )}
+                      </div>
+                      {plan.features.length > 0 && (
+                        <div className="px-4 py-3 border-t border-gray-200">
+                          <ul className="space-y-1.5">
+                            {plan.features.slice(0, 5).map((f, i) => (
+                              <li key={`${plan.id}-f-${i}`} className="flex items-start gap-2 text-xs text-gray-600">
+                                <svg className="w-3 h-3 mt-0.5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/></svg>
+                                {f}
+                              </li>
+                            ))}
+                          </ul>
+                          {plan.features.length > 5 && <p className="text-xs text-gray-400 mt-2">+ {plan.features.length - 5} more</p>}
+                        </div>
                       )}
+                      <div className="px-4 py-2 text-xs text-gray-500 border-t border-gray-200 bg-gray-50/70">{pricingView === 'yearly' ? 'Billed yearly · Save 20%' : 'Billed monthly'}</div>
+                      <div className="px-4 py-3 border-t border-gray-200 flex gap-2">
+                        <a href={isCommunity ? 'https://apps.azulobooks.com/#/register?plan=community' : 'https://apps.azulobooks.com/#/register'} target="_blank" rel="noopener noreferrer" className={`flex-1 py-1.5 text-xs font-medium rounded-lg text-center transition-colors ${isPopular ? 'bg-blue-600 text-white hover:bg-blue-700' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}>
+                          {isCommunity ? 'Apply now' : 'Get started'}
+                        </a>
+                      </div>
                     </div>
-                  )}
+                  );
+                })}
+              </div>
+              <p style={{ textAlign: 'center', fontSize: 12.5, color: '#9ca3af', marginTop: 32 }}>All plans include support, hosting and maintenance · No hidden costs · Light seats at $1/mo</p>
+            </>
+          )}
 
-                  <div className="px-4 py-2 text-xs text-gray-500 border-t border-gray-200 bg-gray-50/70">
-                    {pricingView === 'yearly' ? 'Billed yearly · Save 20%' : 'Billed monthly'}
+          {/* ── Doc Convert plans ── */}
+          {pricingProduct === 'docconvert' && (
+            <>
+              <div style={{ textAlign: 'center', marginBottom: 28 }}>
+                <p style={{ color: '#6b7280', fontSize: 14 }}>Convert PDFs, Word and Excel files — no desktop software needed. Start free, upgrade when you need more.</p>
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3,1fr)', gap: 24, maxWidth: 860, margin: '0 auto' }}>
+
+                {/* Free */}
+                <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 20, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+                  <div style={{ height: 4, background: '#e5e7eb' }} />
+                  <div style={{ padding: '24px 24px 0' }}>
+                    <h3 style={{ fontSize: 18, fontWeight: 800, color: '#0f172a', marginBottom: 4 }}>Free</h3>
+                    <p style={{ fontSize: 12.5, color: '#6b7280', marginBottom: 16 }}>Try it out — no account needed</p>
+                    <div style={{ fontSize: 36, fontWeight: 900, color: '#0f172a', marginBottom: 4 }}>$0</div>
+                    <div style={{ fontSize: 12, color: '#9ca3af', marginBottom: 20 }}>forever free</div>
                   </div>
-
-                  <div className="px-4 py-3 border-t border-gray-200 flex gap-2">
-                    <a
-                      href={isCommunity ? 'https://apps.azulobooks.com/#/register?plan=community' : 'https://apps.azulobooks.com/#/register'}
-                      target="_blank" rel="noopener noreferrer"
-                      className={`flex-1 py-1.5 text-xs font-medium rounded-lg text-center transition-colors ${
-                        isPopular
-                          ? 'bg-blue-600 text-white hover:bg-blue-700'
-                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                      }`}
-                    >
-                      {isCommunity ? 'Apply now' : 'Get started'}
-                    </a>
+                  <div style={{ padding: '0 24px', flex: 1 }}>
+                    <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
+                      {['5 conversions per day','PDF, Word & Excel supported','Browser-based — nothing to install','Standard processing speed'].map(f => (
+                        <li key={f} style={{ display: 'flex', alignItems: 'flex-start', gap: 8, fontSize: 12.5, color: '#374151' }}>
+                          <svg width="14" height="14" style={{ marginTop: 1, flexShrink: 0 }} fill="none" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#f3f4f6"/><path d="M5 8l2 2 4-4" stroke="#6b7280" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                          {f}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div style={{ padding: '20px 24px' }}>
+                    <a href="https://converter.azulobooks.com" target="_blank" rel="noopener noreferrer" style={{ display: 'block', textAlign: 'center', padding: '11px 0', fontSize: 13, fontWeight: 700, color: '#374151', background: '#f3f4f6', borderRadius: 10, textDecoration: 'none' }}>Try for free →</a>
                   </div>
                 </div>
-              );
-            })}
-          </div>
-          <p style={{ textAlign: 'center', fontSize: 12.5, color: '#9ca3af', marginTop: 32 }}>All plans include support, hosting and maintenance · No hidden costs · Light seats at $1/mo</p>
+
+                {/* Pro */}
+                <div style={{ background: '#fff', border: '2px solid #c4b5fd', borderRadius: 20, overflow: 'hidden', display: 'flex', flexDirection: 'column', boxShadow: '0 4px 24px rgba(124,58,237,0.12)', position: 'relative' }}>
+                  <div style={{ height: 4, background: 'linear-gradient(90deg,#7c3aed,#a78bfa)' }} />
+                  <div style={{ position: 'absolute', top: 16, right: 16, background: '#7c3aed', color: '#fff', fontSize: 10, fontWeight: 800, borderRadius: 999, padding: '3px 10px' }}>POPULAR</div>
+                  <div style={{ padding: '24px 24px 0' }}>
+                    <h3 style={{ fontSize: 18, fontWeight: 800, color: '#0f172a', marginBottom: 4 }}>Pro</h3>
+                    <p style={{ fontSize: 12.5, color: '#6b7280', marginBottom: 16 }}>For individuals and small teams</p>
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: 4, marginBottom: 4 }}>
+                      <span style={{ fontSize: 36, fontWeight: 900, color: '#0f172a' }}>$3</span>
+                      <span style={{ fontSize: 13, color: '#9ca3af' }}>/ month</span>
+                    </div>
+                    <div style={{ fontSize: 12, color: '#9ca3af', marginBottom: 20 }}>billed monthly</div>
+                  </div>
+                  <div style={{ padding: '0 24px', flex: 1 }}>
+                    <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
+                      {['Unlimited conversions','AI-powered data extraction','Batch file processing','Priority processing speed','Email support'].map(f => (
+                        <li key={f} style={{ display: 'flex', alignItems: 'flex-start', gap: 8, fontSize: 12.5, color: '#374151' }}>
+                          <svg width="14" height="14" style={{ marginTop: 1, flexShrink: 0 }} fill="none" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#ede9fe"/><path d="M5 8l2 2 4-4" stroke="#7c3aed" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                          {f}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div style={{ padding: '20px 24px' }}>
+                    <a href="https://converter.azulobooks.com" target="_blank" rel="noopener noreferrer" style={{ display: 'block', textAlign: 'center', padding: '11px 0', fontSize: 13, fontWeight: 700, color: '#fff', background: 'linear-gradient(135deg,#7c3aed,#a78bfa)', borderRadius: 10, textDecoration: 'none' }}>Get Pro →</a>
+                  </div>
+                </div>
+
+                {/* Team */}
+                <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 20, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+                  <div style={{ height: 4, background: 'linear-gradient(90deg,#0891b2,#06b6d4)' }} />
+                  <div style={{ padding: '24px 24px 0' }}>
+                    <h3 style={{ fontSize: 18, fontWeight: 800, color: '#0f172a', marginBottom: 4 }}>Team</h3>
+                    <p style={{ fontSize: 12.5, color: '#6b7280', marginBottom: 16 }}>Shared workspace for your whole team</p>
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: 4, marginBottom: 4 }}>
+                      <span style={{ fontSize: 36, fontWeight: 900, color: '#0f172a' }}>$9</span>
+                      <span style={{ fontSize: 13, color: '#9ca3af' }}>/ month</span>
+                    </div>
+                    <div style={{ fontSize: 12, color: '#9ca3af', marginBottom: 20 }}>up to 5 seats</div>
+                  </div>
+                  <div style={{ padding: '0 24px', flex: 1 }}>
+                    <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
+                      {['Everything in Pro','5 team seats included','Shared conversion history','Admin dashboard','Priority support'].map(f => (
+                        <li key={f} style={{ display: 'flex', alignItems: 'flex-start', gap: 8, fontSize: 12.5, color: '#374151' }}>
+                          <svg width="14" height="14" style={{ marginTop: 1, flexShrink: 0 }} fill="none" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#e0f2fe"/><path d="M5 8l2 2 4-4" stroke="#0891b2" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                          {f}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div style={{ padding: '20px 24px' }}>
+                    <a href="https://converter.azulobooks.com" target="_blank" rel="noopener noreferrer" style={{ display: 'block', textAlign: 'center', padding: '11px 0', fontSize: 13, fontWeight: 700, color: '#fff', background: 'linear-gradient(135deg,#0891b2,#06b6d4)', borderRadius: 10, textDecoration: 'none' }}>Get Team →</a>
+                  </div>
+                </div>
+
+              </div>
+              <p style={{ textAlign: 'center', fontSize: 12.5, color: '#9ca3af', marginTop: 32 }}>No conversion limits on paid plans · Cancel anytime · Works in any browser</p>
+            </>
+          )}
+
         </div>
       </section>
 
@@ -601,10 +727,17 @@ const Landing: React.FC = () => {
           <p style={{ color: '#64748b', fontSize: 15.5, marginBottom: 40, maxWidth: 420, margin: '0 auto 40px' }}>
             Free to start, no credit card, cancel whenever. Most businesses send their first invoice the same day they sign up.
           </p>
-          <a href="https://apps.azulobooks.com/#/register" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-block', padding: '15px 42px', fontSize: 14.5, fontWeight: 800, color: '#0f172a', background: '#22d3ee', borderRadius: 12, textDecoration: 'none', letterSpacing: '-0.01em' }}>
-            Create your free account
-          </a>
-          <p style={{ marginTop: 16, fontSize: 12.5, color: '#334155' }}>Free 30-day trial · No credit card · Cancel anytime</p>
+          <div style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', gap: 16, justifyContent: 'center', alignItems: 'center' }}>
+            <div style={{ textAlign: 'center' }}>
+              <a href="https://apps.azulobooks.com/#/register" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-block', padding: '15px 36px', fontSize: 14.5, fontWeight: 800, color: '#0f172a', background: '#22d3ee', borderRadius: 12, textDecoration: 'none', letterSpacing: '-0.01em' }}>Start AzuloBooks free</a>
+              <p style={{ marginTop: 8, fontSize: 12, color: '#475569' }}>ERP · Free 30-day trial · No credit card</p>
+            </div>
+            <div style={{ color: '#334155', fontSize: 14, fontWeight: 600 }}>or</div>
+            <div style={{ textAlign: 'center' }}>
+              <a href="https://converter.azulobooks.com" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-block', padding: '15px 36px', fontSize: 14.5, fontWeight: 800, color: '#fff', background: 'rgba(124,58,237,0.9)', borderRadius: 12, textDecoration: 'none', letterSpacing: '-0.01em' }}>Try Doc Convert free</a>
+              <p style={{ marginTop: 8, fontSize: 12, color: '#475569' }}>File converter · Free · Pro from $3/mo</p>
+            </div>
+          </div>
         </div>
       </section>
 
