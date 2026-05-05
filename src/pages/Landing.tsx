@@ -318,7 +318,7 @@ const Landing: React.FC = () => {
                 </button>
                 {getStartedOpen && (
                   <div style={{ position: 'absolute', top: 'calc(100% + 8px)', right: 0, background: '#fff', border: '1px solid #e5e7eb', borderRadius: 12, boxShadow: '0 8px 32px rgba(0,0,0,0.12)', padding: 6, minWidth: 230, zIndex: 99 }}>
-                    <a href="https://apps.azulobooks.com/#/register" target="_blank" rel="noopener noreferrer" onClick={() => setGetStartedOpen(false)} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', borderRadius: 8, textDecoration: 'none', color: '#111827' }}>
+                    <a href="https://apps.azulobooks.com/#/login" target="_blank" rel="noopener noreferrer" onClick={() => setGetStartedOpen(false)} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', borderRadius: 8, textDecoration: 'none', color: '#111827' }}>
                       <span style={{ width: 30, height: 30, borderRadius: 8, background: 'linear-gradient(135deg,#e0f2fe,#bae6fd)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 15, flexShrink: 0 }}>📊</span>
                       <div><div style={{ fontWeight: 700, fontSize: 13 }}>AzuloBooks ERP</div><div style={{ fontSize: 11, color: '#6b7280' }}>Free 30-day trial</div></div>
                     </a>
@@ -350,7 +350,7 @@ const Landing: React.FC = () => {
               </div>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-              <a href="https://apps.azulobooks.com/#/register" target="_blank" rel="noopener noreferrer" onClick={() => setMenuOpen(false)} style={{ padding: '12px 20px', fontSize: 14, fontWeight: 700, color: '#fff', background: 'linear-gradient(135deg,#06b6d4,#0891b2)', borderRadius: 8, textDecoration: 'none', textAlign: 'center' }}>Get started — AzuloBooks ERP</a>
+              <a href="https://apps.azulobooks.com/#/login" target="_blank" rel="noopener noreferrer" onClick={() => setMenuOpen(false)} style={{ padding: '12px 20px', fontSize: 14, fontWeight: 700, color: '#fff', background: 'linear-gradient(135deg,#06b6d4,#0891b2)', borderRadius: 8, textDecoration: 'none', textAlign: 'center' }}>Get started — AzuloBooks ERP</a>
               <a href="https://converter.azulobooks.com" target="_blank" rel="noopener noreferrer" onClick={() => setMenuOpen(false)} style={{ padding: '12px 20px', fontSize: 14, fontWeight: 700, color: '#fff', background: 'linear-gradient(135deg,#7c3aed,#a78bfa)', borderRadius: 8, textDecoration: 'none', textAlign: 'center' }}>Try Doc Convert free</a>
             </div>
           </div>
@@ -370,7 +370,7 @@ const Landing: React.FC = () => {
             </p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-                <a href="https://apps.azulobooks.com/#/register" target="_blank" rel="noopener noreferrer" style={{ padding: '12px 22px', fontSize: 13.5, fontWeight: 700, color: '#0f172a', background: '#22d3ee', borderRadius: 8, textDecoration: 'none' }}>Start AzuloBooks free</a>
+                <a href="https://apps.azulobooks.com/#/login" target="_blank" rel="noopener noreferrer" style={{ padding: '12px 22px', fontSize: 13.5, fontWeight: 700, color: '#0f172a', background: '#22d3ee', borderRadius: 8, textDecoration: 'none' }}>Start AzuloBooks free</a>
                 <a href="https://converter.azulobooks.com" target="_blank" rel="noopener noreferrer" style={{ padding: '12px 22px', fontSize: 13.5, fontWeight: 700, color: '#fff', background: 'rgba(124,58,237,0.85)', borderRadius: 8, textDecoration: 'none' }}>Try Doc Convert free</a>
               </div>
               <a href="#products" onClick={e => { e.preventDefault(); document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' }); }} style={{ fontSize: 13, color: '#475569', textDecoration: 'none', cursor: 'pointer' }}>→ See all products</a>
@@ -413,7 +413,7 @@ const Landing: React.FC = () => {
                 ))}
               </ul>
               <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                <a href="https://apps.azulobooks.com/#/register" target="_blank" rel="noopener noreferrer" style={{ padding: '11px 24px', fontSize: 13.5, fontWeight: 800, color: '#fff', background: 'linear-gradient(135deg,#06b6d4,#0891b2)', borderRadius: 10, textDecoration: 'none' }}>Get started free →</a>
+                <a href="https://apps.azulobooks.com/#/login" target="_blank" rel="noopener noreferrer" style={{ padding: '11px 24px', fontSize: 13.5, fontWeight: 800, color: '#fff', background: 'linear-gradient(135deg,#06b6d4,#0891b2)', borderRadius: 10, textDecoration: 'none' }}>Get started free →</a>
                 <span style={{ fontSize: 12.5, color: '#9ca3af' }}>Free 30-day trial</span>
               </div>
             </div>
@@ -582,7 +582,7 @@ const Landing: React.FC = () => {
                       )}
                       <div className="px-4 py-2 text-xs text-gray-500 border-t border-gray-200 bg-gray-50/70">{pricingView === 'yearly' ? 'Billed yearly · Save 20%' : 'Billed monthly'}</div>
                       <div className="px-4 py-3 border-t border-gray-200 flex gap-2">
-                        <a href={isCommunity ? 'https://apps.azulobooks.com/#/register?plan=community' : 'https://apps.azulobooks.com/#/register'} target="_blank" rel="noopener noreferrer" className={`flex-1 py-1.5 text-xs font-medium rounded-lg text-center transition-colors ${isPopular ? 'bg-blue-600 text-white hover:bg-blue-700' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}>
+                        <a href={isCommunity ? 'https://apps.azulobooks.com/#/login?plan=community' : 'https://apps.azulobooks.com/#/login'} target="_blank" rel="noopener noreferrer" className={`flex-1 py-1.5 text-xs font-medium rounded-lg text-center transition-colors ${isPopular ? 'bg-blue-600 text-white hover:bg-blue-700' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}>
                           {isCommunity ? 'Apply now' : 'Get started'}
                         </a>
                       </div>
@@ -729,7 +729,7 @@ const Landing: React.FC = () => {
           </p>
           <div style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', gap: 16, justifyContent: 'center', alignItems: 'center' }}>
             <div style={{ textAlign: 'center' }}>
-              <a href="https://apps.azulobooks.com/#/register" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-block', padding: '15px 36px', fontSize: 14.5, fontWeight: 800, color: '#0f172a', background: '#22d3ee', borderRadius: 12, textDecoration: 'none', letterSpacing: '-0.01em' }}>Start AzuloBooks free</a>
+              <a href="https://apps.azulobooks.com/#/login" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-block', padding: '15px 36px', fontSize: 14.5, fontWeight: 800, color: '#0f172a', background: '#22d3ee', borderRadius: 12, textDecoration: 'none', letterSpacing: '-0.01em' }}>Start AzuloBooks free</a>
               <p style={{ marginTop: 8, fontSize: 12, color: '#475569' }}>ERP · Free 30-day trial · No credit card</p>
             </div>
             <div style={{ color: '#334155', fontSize: 14, fontWeight: 600 }}>or</div>
